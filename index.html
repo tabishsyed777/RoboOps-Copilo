@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b1017" />
+    <meta name="description" content="RoboOps Copilot: grounded robotics troubleshooting with reviewable actions." />
+    <title>RoboOps Copilot — Robotics operations</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="config.js"></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <a class="brand" href="#home"><span class="brand-icon">R</span><span>roboops<small>FLOOR COPILOT</small></span></a>
+      <div class="plant-switch"><span class="plant-icon">⌂</span><span><small>ACTIVE FACILITY</small><b>Automation Lab 01</b></span><span class="chevron">⌄</span></div>
+      <p class="nav-label">WORKSPACE</p>
+      <nav aria-label="Workspace navigation"><a class="nav-link selected" href="#home"><span>▦</span> Overview</a><a class="nav-link" href="#copilot"><span>✳</span> Copilot <i class="nav-new">AI</i></a><a class="nav-link" href="#knowledge"><span>▤</span> Knowledge base</a><a class="nav-link" href="#activity"><span>◷</span> Activity log</a></nav>
+      <div class="sidebar-spacer"></div>
+      <div class="system-state"><span class="state-dot"></span><span><b>Simulation online</b><small>Robot data is synthetic</small></span><span class="more">···</span></div>
+      <div class="user-card"><span class="user-avatar">TS</span><span><b>Tabish Syed</b><small>Lab operator</small></span><span class="more">⌄</span></div>
+    </aside>
+
+    <main id="home">
+      <header class="topbar"><div class="crumb">Automation Lab 01 <span>/</span> <b>Overview</b></div><div class="top-actions"><span class="live-state"><i></i><span id="connection-label">DEMO MODE</span></span><span id="clock">--:--</span><button class="avatar-small" aria-label="User menu">TS</button></div></header>
+      <section class="welcome"><div><p class="overline">ROBOTICS OPERATIONS <span>·</span> SHIFT A</p><h1>Good morning, Tabish</h1><p class="welcome-text">Your robot cell is steady. Ask the copilot about a fault, procedure, or maintenance task.</p></div><button id="refresh-status" class="quiet-button"><span>↻</span> Refresh status</button></section>
+
+      <section class="robot-row" aria-label="Robot cell status">
+        <article class="robot-card featured"><div class="robot-card-top"><span class="robot-symbol arm-symbol">⌘</span><span class="status-chip online"><i></i> READY</span></div><p class="robot-type">COLLABORATIVE ARM <span>·</span> CELL A-01</p><h2>Aster-6</h2><div class="robot-data"><span>Mode <b>Idle</b></span><span>Joint temp <b>38°C</b></span><span>Last cycle <b>2m ago</b></span></div><div class="sparkline mint"><svg viewBox="0 0 180 36" preserveAspectRatio="none" aria-hidden="true"><path d="M0 25 C15 23 18 14 30 18 S46 28 58 19 75 10 88 16 104 24 117 15 130 17 143 12 160 15 180 5"/></svg></div></article>
+        <article class="robot-card"><div class="robot-card-top"><span class="robot-symbol conveyor-symbol">⇢</span><span class="status-chip running"><i></i> RUNNING</span></div><p class="robot-type">CONVEYOR LINE <span>·</span> CELL B-02</p><h2>Line-02</h2><div class="robot-data"><span>Throughput <b>42 / min</b></span><span>Motor load <b>61%</b></span><span>Last cycle <b>Now</b></span></div><div class="sparkline blue"><svg viewBox="0 0 180 36" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24 C17 22 21 18 33 20 S47 10 60 15 75 20 88 13 101 16 113 8 129 13 143 10 164 8 180 4"/></svg></div></article>
+        <article class="robot-card"><div class="robot-card-top"><span class="robot-symbol vision-symbol">◉</span><span class="status-chip attention"><i></i> CHECK</span></div><p class="robot-type">VISION INSPECTOR <span>·</span> CELL C-01</p><h2>Inspect-01</h2><div class="robot-data"><span>Confidence <b>96.4%</b></span><span>Camera <b>Connected</b></span><span>Last check <b>12s ago</b></span></div><div class="sparkline amber"><svg viewBox="0 0 180 36" preserveAspectRatio="none" aria-hidden="true"><path d="M0 20 C17 18 20 24 35 17 S48 20 61 12 77 17 89 14 101 8 115 15 128 11 142 8 163 18 180 7"/></svg></div></article>
+      </section>
+
+      <section class="content-grid">
+        <section class="panel copilot-panel" id="copilot" aria-labelledby="copilot-title">
+          <div class="panel-head"><div class="copilot-title"><span class="spark-icon">✳</span><div><h2 id="copilot-title">RoboOps Copilot</h2><p>Answers grounded in your procedures</p></div></div><span class="model-pill" id="model-label">RETRIEVAL DEMO</span></div>
+          <div class="chat-window" id="chat-window" aria-live="polite">
+            <article class="message assistant-message"><div class="assistant-avatar">✳</div><div class="message-body"><div class="message-meta"><b>RoboOps Copilot</b><span>just now</span></div><p>Hi Tabish. I can search the robotics procedures and help diagnose the simulated robot cell. What are you investigating?</p><div class="starter-prompts"><button class="prompt-chip">Why did Aster-6 stop?</button><button class="prompt-chip">How do I clear a guard fault?</button><button class="prompt-chip">Suggest a preventive check</button></div></div></article>
+          </div>
+          <form id="chat-form" class="composer"><label class="sr-only" for="question">Ask about a robot or procedure</label><textarea id="question" rows="1" placeholder="Ask about a robot fault, SOP, or maintenance task…" required></textarea><div class="composer-bottom"><span><span class="lock-icon">▣</span> Answers cite lab documents · Actions need your review</span><button id="send-button" type="submit" aria-label="Send question">↑</button></div></form>
+          <div class="panel-foot"><span>ⓘ Sample responses use the included fictional lab procedures.</span><span>Not connected to real robots</span></div>
+        </section>
+
+        <aside class="right-column">
+          <section class="panel action-panel" id="action-panel"><div class="panel-head compact-head"><div><p class="overline">HUMAN REVIEW</p><h2>Proposed actions</h2></div><span class="pending-count" id="pending-count">0</span></div><div id="actions-list" class="actions-list"><div class="empty-action"><span>✓</span><b>Nothing waiting</b><small>Copilot suggestions appear here for your review.</small></div></div><div class="action-note"><span>⚠</span><p>RoboOps only creates suggestions. It never sends commands to physical machinery.</p></div></section>
+          <section class="panel knowledge-panel" id="knowledge"><div class="panel-head compact-head"><div><p class="overline">RETRIEVAL SOURCES</p><h2>Knowledge base</h2></div><button id="upload-trigger" class="upload-button" title="Add a PDF, Markdown, or text procedure">＋ Add</button></div><div id="documents-list" class="documents-list"></div><label for="document-upload" class="sr-only">Upload a procedure</label><input type="file" id="document-upload" accept=".pdf,.md,.txt" hidden /><div class="knowledge-foot"><span class="index-status"><i></i><span id="index-label">Demo index ready</span></span><span id="document-count">3 docs</span></div></section>
+        </aside>
+
+        <section class="panel activity-panel" id="activity"><div class="panel-head compact-head"><div><p class="overline">OBSERVABILITY</p><h2>Agent activity</h2></div><button id="clear-activity" class="link-button">Clear log</button></div><div id="activity-list" class="activity-list"><div class="activity-entry"><span class="activity-mark mint-mark">✓</span><div><b>Knowledge index loaded</b><p>3 sample procedures are ready for retrieval.</p></div><time>Just now</time></div><div class="activity-entry"><span class="activity-mark blue-mark">⌁</span><div><b>Robot status synchronized</b><p>Using the local simulated cell snapshot.</p></div><time>Just now</time></div></div></section>
+      </section>
+      <footer><span>ROBOOPS COPILOT <i></i> LOCAL PROTOTYPE</span><span>Retrieval demo · Fictional equipment and procedures · No physical control</span><a href="README.md">Project notes ↗</a></footer>
+    </main>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
